@@ -1,10 +1,21 @@
 library(MASS)
 library(mclust)
 library(cluster)
+library(ggplot2)
+library(GGally)
 
+## Section 1 Introduction 
+# citation("MASS") citation for MASS
+# citation() citation for R
 # Load diabetes dataset 
 pima <- rbind(Pima.tr,Pima.te)
-pairs(pima, col = (as.numeric(pima$type) + 1))
+
+## Section 2
+# 
+#pairs(pima, col = (as.numeric(pima$type) ))
+ggpairs(pima[,-8], aes(colour = pima$type ))
+
+
 
 # PCA Into Neural Network, Mixture Discermeent, and Boosted Trees
 
