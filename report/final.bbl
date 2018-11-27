@@ -1,13 +1,41 @@
-\begin{thebibliography}{4}
+\begin{thebibliography}{12}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{\texttt{#1}}\fi
 \expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
 
+\bibitem[{Chen and Guestrin(2016)}]{gradientboost}
+Chen, T., Guestrin, C., 2016. Xgboost: {A} scalable tree boosting system. CoRR
+  abs/1603.02754.
+\newline\urlprefix\url{http://arxiv.org/abs/1603.02754}
+
 \bibitem[{Chubbs(2017)}]{diabetes}
 Chubbs, D.~O., 2017. Primary Care Provider Adherence to the Canadian Diabetes
   Association Clinical Practice Guideline for Chronic Kidney Disease.
   ScholarWorks@UMass Amherst.
+
+\bibitem[{Dempster et~al.(1977)Dempster, Laird, and Rubin}]{dempster}
+Dempster, A.~P., Laird, N.~M., Rubin, D.~B., 1977. Maximum likelihood from
+  incomplete data via the {EM}-algorithm. Journal of the Royal Statistical
+  Society B 39, 1--38.
+
+\bibitem[{Greenwell et~al.(2018)Greenwell, Boehmke, Cunningham, and
+  Developers}]{gbm}
+Greenwell, B., Boehmke, B., Cunningham, J., Developers, G., 2018. gbm:
+  Generalized Boosted Regression Models. R package version 2.1.4.
+\newline\urlprefix\url{https://CRAN.R-project.org/package=gbm}
+
+\bibitem[{Max~Kuhn et~al.(2018)Max~Kuhn, Weston, Williams, Keefer, Engelhardt,
+  Cooper, Mayer, Kenkel, the R~Core~Team, Benesty, Lescarbeau, Ziem, Scrucca,
+  Tang, Candan, and Hunt.}]{caret}
+Max~Kuhn, J.~W., Weston, S., Williams, A., Keefer, C., Engelhardt, A., Cooper,
+  T., Mayer, Z., Kenkel, B., the R~Core~Team, Benesty, M., Lescarbeau, R.,
+  Ziem, A., Scrucca, L., Tang, Y., Candan, C., Hunt., T., 2018. caret:
+  Classification and Regression Training. R package version 6.0-80.
+\newline\urlprefix\url{https://CRAN.R-project.org/package=caret}
+
+\bibitem[{McNicholas(2015)}]{mixdist}
+McNicholas, P.~D., 2015. Mixture Model-Based Classification. Chapman and Hall.
 
 \bibitem[{{R Core Team}(2018)}]{Rprog}
 {R Core Team}, 2018. R: A Language and Environment for Statistical Computing. R
@@ -21,9 +49,28 @@ Smith, J.~W., Everhart, J.~E., Dickson, W.~C., Knowler, W.~C., Johannes, R.~S.,
   mellitus. In: Proceedings of the Annual Symposium on Computer Application in
   Medical Care. pp. 261--265.
 
+\bibitem[{Tortora et~al.(2018)Tortora, ElSherbiny, Browne, Franczak, ,
+  McNicholas, and D..}]{mixGHD}
+Tortora, C., ElSherbiny, A., Browne, R.~P., Franczak, B.~C., , McNicholas,
+  P.~D., D.., A.~D., 2018. MixGHD: Model Based Clustering, Classification and
+  Discriminant Analysis Using the Mixture of Generalized Hyperbolic
+  Distributions. R package version 2.2.
+\newline\urlprefix\url{https://CRAN.R-project.org/package=MixGHD}
+
+\bibitem[{{Tortora} et~al.(2014){Tortora}, {Franczak}, {Browne}, and
+  {McNicholas}}]{hyper}
+{Tortora}, C., {Franczak}, B.~C., {Browne}, R.~P., {McNicholas}, P.~D., Mar.
+  2014. {A Mixture of Coalesced Generalized Hyperbolic Distributions}. ArXiv
+  e-prints.
+
 \bibitem[{Venables and Ripley(2002)}]{pima_d}
 Venables, W.~N., Ripley, B.~D., 2002. Modern Applied Statistics with S, 4th
   Edition. Springer, New York, iSBN 0-387-95457-0.
 \newline\urlprefix\url{http://www.stats.ox.ac.uk/pub/MASS4}
+
+\bibitem[{Zhou and Liu(2006)}]{imbalance}
+Zhou, Z.-H., Liu, X.-Y., Jan 2006. Training cost-sensitive neural networks with
+  methods addressing the class imbalance problem. IEEE Transactions on
+  Knowledge and Data Engineering 18~(1), 63--77.
 
 \end{thebibliography}

@@ -3,14 +3,64 @@
 \citation{pima}
 \citation{pima_d}
 \citation{Rprog}
+\citation{pima}
+\citation{pima}
+\citation{diabetes}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Pima Dataset}{1}}
 \newlabel{covDes}{{2}{1}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Description of covariates in Pima dataset with summary statistics.}}{1}}
+\citation{Rprog}
+\newlabel{pairsPlot}{{2}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Pairs plot of covariates coloured blue for diabetic and red for normal individuals with correlation coefficients in the upper triangular portion of the pairs plot.}}{2}}
+\citation{imbalance}
+\citation{mixGHD}
+\citation{gbm}
+\newlabel{count}{{2}{3}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Counts of individuals for each class.}}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Methodology}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Data Preparation}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Model Methodology}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Mixtures of Hyperbolic Distributions}{3}}
+\citation{hyper}
+\citation{dempster}
+\citation{hyper}
+\citation{mixdist}
+\citation{gradientboost}
+\citation{caret}
+\citation{mixdist}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Gradient Boosted Trees}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Training Methodology}{5}}
+\citation{mixdist}
+\citation{mixGHD}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Evaluation Methodology}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Results}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Training Results}{6}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Model performance results with ARI and class error over all six variations. }}{7}}
+\newlabel{modelPerf}{{3}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Boosted Tree with Hyperbolic Feature Results}{7}}
+\newlabel{rocr}{{4.2}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces ROC curve (left) for Boosted Tree Model with Hyperbolic Features as well as a true negative vs false negative rate plot (right).}}{8}}
+\newlabel{classTable}{{4.2}{8}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Classification table for mixture of hyperbolic distributions (left) and gradient boosted trees (right), vertical (0,1) is positive for diabetes and horizontal is mixture class label.}}{8}}
+\newlabel{relInflu}{{4.2}{8}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Relative influence of each covariate on boosted tree prediction in percetages. }}{8}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusions}{8}}
+\newlabel{RF1}{10}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Appendix}{10}}
+\newlabel{fig:overview}{{6}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Methodological Overview}}{10}}
 \bibstyle{elsart-harv}
 \bibdata{final_b}
-\bibcite{diabetes}{{1}{2017}{{Chubbs}}{{}}}
-\bibcite{Rprog}{{2}{2018}{{R Core Team}}{{}}}
-\bibcite{pima}{{3}{1988}{{Smith et~al.}}{{Smith, Everhart, Dickson, Knowler, and Johannes}}}
-\bibcite{pima_d}{{4}{2002}{{Venables and Ripley}}{{}}}
-\newlabel{pairsPlot}{{2}{2}}
+\bibcite{gradientboost}{{1}{2016}{{Chen and Guestrin}}{{}}}
+\bibcite{diabetes}{{2}{2017}{{Chubbs}}{{}}}
+\bibcite{dempster}{{3}{1977}{{Dempster et~al.}}{{Dempster, Laird, and Rubin}}}
+\bibcite{gbm}{{4}{2018}{{Greenwell et~al.}}{{Greenwell, Boehmke, Cunningham, and Developers}}}
+\bibcite{caret}{{5}{2018}{{Max~Kuhn et~al.}}{{Max~Kuhn, Weston, Williams, Keefer, Engelhardt, Cooper, Mayer, Kenkel, the R~Core~Team, Benesty, Lescarbeau, Ziem, Scrucca, Tang, Candan, and Hunt.}}}
+\bibcite{mixdist}{{6}{2015}{{McNicholas}}{{}}}
+\bibcite{Rprog}{{7}{2018}{{R Core Team}}{{}}}
+\bibcite{pima}{{8}{1988}{{Smith et~al.}}{{Smith, Everhart, Dickson, Knowler, and Johannes}}}
+\bibcite{mixGHD}{{9}{2018}{{Tortora et~al.}}{{Tortora, ElSherbiny, Browne, Franczak, , McNicholas, and D..}}}
+\bibcite{hyper}{{10}{2014}{{{Tortora} et~al.}}{{{Tortora}, {Franczak}, {Browne}, and {McNicholas}}}}
+\bibcite{pima_d}{{11}{2002}{{Venables and Ripley}}{{}}}
+\bibcite{imbalance}{{12}{2006}{{Zhou and Liu}}{{}}}
