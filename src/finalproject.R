@@ -28,6 +28,14 @@ ggpairs(pima[,-8], aes(colour = pima$type ))
 pima[,-8] <- scale(pima[,-8])
 
 
+
+
+
+
+
+
+
+
 ## Section 3 Methodology 
 # =======================================
 # Split up into training and test set. 
@@ -72,6 +80,12 @@ test.n$type <- as.numeric(test.n$type == "Yes")
 # checking to see if classes are weighted equally. 
 table(train.bs$type) # done. 
 train.bs$type <- as.numeric(train.bs$type == "Yes")
+
+
+
+
+
+
 
 
 
