@@ -160,7 +160,7 @@ ari_boot_dp <- function(prior,num_boots = 50)
 
 # test function for results 
 # each run takes approximately 8 minutes. times 50 times x number of priors is a very long time
-rez_2 <- ari_boot_dp(c(1,2),num_boots = 50) 
+rez_12 <- ari_boot_dp(c(1,2),num_boots = 50) 
 # running this on the server takes a few minutes. 
 
 
@@ -187,7 +187,7 @@ ari_boot_par_dp <- function(prior,num_boots = 50)
     test.n[,-8] <- scale(test.n[,-8])
     
     #fit the model
-    dp <- DirichletProcessMvnormal(as.matrix(train.bs[,-8]),alphaPriors = )
+    dp <- DirichletProcessMvnormal(as.matrix(train.bs[,-8]),alphaPriors = prior )
     dp <- Fit(dp, 1000)
     clus_labels <- dp$clusterLabels # get the cluster labels from the training set 
     
@@ -197,7 +197,7 @@ ari_boot_par_dp <- function(prior,num_boots = 50)
     adjustedRandIndex(vlabs,test.n$type)
   }
   
-  ari_cluster <- mcmapply(run_model, 1:num_boots,num_boots) # clusterApply(cl,1:num_boots,run_model)
+  ari_cluster <- mcmapply(run_model, 1:num_boots,2) # clusterApply(cl,1:num_boots,run_model)
   ari_class <- unlist(ari_cluster)
 }
 
