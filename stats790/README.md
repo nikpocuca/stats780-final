@@ -11,4 +11,5 @@ The multivariate Gaussian Mixture Model is one of the most popular approaches to
 mathematical tractability and computational feasibility. The dirchletprocess package (Ross et. al. 2020) by R incorporates the classic mixture model approach with the robustness of a Dirchlet process. The Infinite Multivariate Gaussian Mixture Model is an extension of the original finite mixture model in the following definition:
 
 Let $X$ be a random variable whose density is formulated as
- $ f(x|ϑ) = \sum_{g=1}^∞  $
+[density]: density.png
+![][density]

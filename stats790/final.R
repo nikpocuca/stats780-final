@@ -1,7 +1,10 @@
 
+
+# installation packages 
+
 install_packs <- function(){
   packs <- c("MASS","mclust","ggplot2","GGally","dplyr",
-             "mvtnorm","dirichletprocess","parallel" )
+             "mvtnorm","dirichletprocess","parallel","gbm" )
   for(pack in packs){
     install.packages(pack)
   }
@@ -16,8 +19,13 @@ library(dplyr) # sorting
 library(mvtnorm) # density needed to calculate e-step. 
 library(dirichletprocess) # infinite gaussian mixtures. 
 library(parallel) # parallel for server processes. 
+library(gbm) # gradiant boosted trees 
 
 
+# ==========================================================
+# Q2 
+# ==========================================================
+# cleaning data 
 pima <- rbind(Pima.tr,Pima.te)
 ## Pairs plot for the two groups
 pairs <- ggpairs(pima[,-8], aes(colour = pima$type ))
@@ -53,8 +61,8 @@ mm <- Mclust(train.bs[,-8])
 ## fit all 14 models and see the clusters.
 
 pairs_clust <- ggpairs(train.bs[,-8],   aes(color = as.factor(mm$classification)),
-        lower = list( continuous = wrap("points",size = 0.5))
-          )
+        lower = list( continuous = wrap("points",size = 0.5)))
+
 pairs_clust
 ## it looks like there is a lot of overlap between classes. 
 # the green points and red points belong to to the diabetic class while the other ones 
@@ -72,10 +80,8 @@ pairs_clust
 table(train.bs$type,mm$classification)
 adjustedRandIndex(train.bs$type,mm$classification)
 
-
-
-#
-dp <- DirichletProcessMvnormal(as.matrix(train.bs[,-8]),alphaPriors = )
+# Dirichlete processes Fit 1 
+dp <- DirichletProcessMvnormal(as.matrix(train.bs[,-8]))
 dp <- Fit(dp, 1000)
 clus_labels <- dp$clusterLabels
 pairs_clust <- ggpairs(train.bs[,-8],   aes(color = as.factor(clus_labels)),
@@ -85,6 +91,8 @@ pairs_clust
 table(clus_labels,train.bs$type)
 adjustedRandIndex(clus_labels,train.bs$type)
 
+
+# my own custom prediction function. 
 # custom function for prediction on the test set 
 predict_dp <- function(mod, new_data ){
   # mixing proportions 
@@ -115,7 +123,7 @@ predict_dp <- function(mod, new_data ){
   znaks 
 }
 
-
+# predict labels 
 vlabs <- predict_dp(dp,test.n[,-8])
 table(vlabs,test.n$type)
 adjustedRandIndex(vlabs,test.n$type)
@@ -124,8 +132,9 @@ adjustedRandIndex(vlabs,test.n$type)
 
 # MSE for dirichlet processes 
 # first one is default
-potential_priors <- list(c(2,4),c(1,2),c(3,5),c(3,3))
+potential_priors <- list(c(2,4),c(1,2),c(3,5)) # possible priors 
 
+# custome prediction function for ari_boot. 
 ari_boot_dp <- function(prior,num_boots = 50)
 {
   ari_class <- rep(0,num_boots)
@@ -206,9 +215,110 @@ for(pr in potential_priors){
   rezlts <- append(rezlts,ari_boot_par_dp(c(1,2),50))
 }
 
-# now to plot results 
+# ==========================================================
+# Q3  
+# ==========================================================
+pima <- rbind(Pima.tr,Pima.te)
+pima[,-8] <- scale(pima[,-8])
+# classes are not even so I am going to do bootstrap
+# sampling to create my own training set
+len_pima <- dim(pima)[1]
+ind_train <- sample(1:len_pima, as.integer(len_pima*0.80))
+train.n <- pima[ind_train,]
+test.n  <- pima[-ind_train,]
+# scaling some stuff
+train.n[,-8] <- scale(train.n[,-8])
+test.n[,-8] <- scale(test.n[,-8])
+# keep number of trees constant
+ntrees <- 311
 
-rezlts <- list()
+
+train.n$type <- as.numeric(train.n$type == "Yes")
+# GRADIENT BOOSTED TREES 
+library(gbm)
+ntrees <- 311
+f_diabetes <- formula(type ~ age + ped + bmi + skin + bp + glu + npreg )
+boost.pima=gbm(f_diabetes,
+               data= train.n,
+               distribution="bernoulli",
+               n.trees=ntrees,
+               interaction.depth=2,
+               shrinkage = 0.01,
+               n.minobsinnode = 10)
+
+sm.boost.pima <- summary(boost.pima)
+y_hat = predict(boost.pima, newdata = train.n,n.trees = ntrees,type=  "response")
+pred_hat <- as.numeric(0.5 < y_hat)
+true_train <- train.n$type
+table(pred_hat, true_train)
+
+adjust <- adjustedRandIndex(pred_hat,true_train)
+#c_error <- classError(pred_hat,true_train)
+
+
+
+# custom function to check shrinkage parmaeter. 
+find_shrinkage <- function(shrink = c(0.1),nboots = 50)
+{
+  ari_per_shrink <- matrix(0,nrow = length(shrink),ncol = nboots)
+  count = 1;
+  for(s_i in shrink) {
+    # go for 50 bootstraps 
+    ari_boots <- rep(0,nboots)
+    for(i in 1:nboots){
+      # randomely stratify sample 
+      pima <- rbind(Pima.tr,Pima.te)
+      pima[,-8] <- scale(pima[,-8])
+      # classes are not even so I am going to do bootstrap
+      # sampling to create my own training set
+      len_pima <- dim(pima)[1]
+      ind_train <- sample(1:len_pima, as.integer(len_pima*0.80))
+      train.n <- pima[ind_train,]
+      test.n  <- pima[-ind_train,]
+      # scaling some stuff
+      train.n[,-8] <- scale(train.n[,-8])
+      test.n[,-8] <- scale(test.n[,-8])
+      # keep number of trees constant
+      ntrees <- 311
+      f_diabetes <- formula(type ~ age + ped + bmi + skin + bp + glu + npreg )
+      train.n$type <- as.numeric(train.n$type == "Yes")
+      boost.pima=gbm(formula = f_diabetes,
+                     data= train.n,
+                     distribution="bernoulli",
+                     n.trees=ntrees,
+                     interaction.depth=2,
+                     shrinkage = s_i,
+                     n.minobsinnode = 10)
+      y_hat = predict(boost.pima, newdata = test.n,n.trees = ntrees,type=  "response")
+      pred_hat <- as.numeric(0.5 < y_hat)
+      true_train <- train.n$type
+      # calculate adjusted rand index. 
+      adjust <- adjustedRandIndex(pred_hat,test.n$type)
+      ari_boots[i] <- adjust
+    } # end bootstraps 
+    # put bootstraps into matrix 
+    ari_per_shrink[count,] <- ari_boots
+    count <- count + 1
+  }  # end for loop
+  
+  return(ari_per_shrink)
+}
+
+# run this, only takes a few minutes. 
+aa <- find_shrinkage(shrink = c(0.005,0.01,0.1,0.2,0.5))
+
+shrinkages <- c(rep("0.005",50),rep("0.01",50),rep("0.1",50),rep("0.2",50),rep("0.5",50))
+aris <- c(aa[1,],aa[2,],aa[3,],aa[4,],aa[5,])
+
+
+# boxviolin plot for Q3 
+gbm_results <- data.frame(shrinkages,aris)
+
+p <- ggplot(gbm_results) + geom_violin(aes(x = as.factor(shrinkages),
+                                  y = aris)) + geom_boxplot(aes(x = as.factor(shrinkages),
+                                                              y = aris)) +
+     labs(x = "shrinkage")
+p
 
 
 
